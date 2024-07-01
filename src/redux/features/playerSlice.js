@@ -6,7 +6,7 @@ const initialState = {
   isActive: false,
   isPlaying: false,
   // activeSong: {},
-  activeSong: null,
+  activeSong: { title: '' },
   genreListId: '',
 };
 
@@ -14,20 +14,30 @@ const playerSlice = createSlice({
   name: 'player',
   initialState,
   reducers: {
+    // setActiveSong: (state, action) => {
+    //   console.log('setActiveSong action received:', action.payload);
+    //   state.activeSong = action.payload.song;
+
+    //   if (action.payload?.data?.tracks?.hits) {
+    //     state.currentSongs = action.payload.data.tracks.hits;
+    //   } else if (action.payload?.data?.properties) {
+    //     state.currentSongs = action.payload?.data?.tracks;
+    //   } else {
+    //     state.currentSongs = action.payload.data;
+    //   }
+
+    //   state.currentIndex = action.payload.i;
+    //   state.isActive = true;
+    // },
+
     setActiveSong: (state, action) => {
-      console.log('setActiveSong action received:', action.payload);
+      console.log('setActiveSong reducer called');
+      console.log('Payload:', action.payload);
       state.activeSong = action.payload.song;
-
-      if (action.payload?.data?.tracks?.hits) {
-        state.currentSongs = action.payload.data.tracks.hits;
-      } else if (action.payload?.data?.properties) {
-        state.currentSongs = action.payload?.data?.tracks;
-      } else {
-        state.currentSongs = action.payload.data;
-      }
-
+      state.currentSongs = action.payload.data;
       state.currentIndex = action.payload.i;
       state.isActive = true;
+      console.log('New state:', JSON.parse(JSON.stringify(state)));
     },
 
     nextSong: (state, action) => {

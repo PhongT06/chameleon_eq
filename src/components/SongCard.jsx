@@ -11,7 +11,7 @@ const SongCard = ({ song, isPlaying, activeSong, i, data }) => {
   };
   
   const handlePlayClick = () => {
-    console.log('Play clicked. Song data:', song);
+    console.log('Dispatching setActiveSong with song:', song);
     dispatch(setActiveSong({ song, data, i }));
     dispatch(playPause(true));
   };
@@ -28,17 +28,22 @@ const SongCard = ({ song, isPlaying, activeSong, i, data }) => {
             handlePlay={handlePlayClick}
           />
         </div>
-        <img 
+        {/* <img 
           alt="song_img" 
           src={song.attributes?.artwork?.url || '/path/to/fallback-image.jpg'} 
           onError={(e) => {
             e.target.onerror = null;
             e.target.src = '/path/to/fallback-image.jpg';
           }}
+        /> */}
+        <img 
+          alt="song_img" 
+          src={song.attributes.artwork.url.replace('{w}', '500').replace('{h}', '500')}
+          className="w-full h-full rounded-lg"
         />
       </div>
 
-      <div className="mt-4 flex flex-col">
+      {/* <div className="mt-4 flex flex-col">
         <p className="font-semibold text-lg text-white truncate">
           <Link to={`/songs/${song?.id}`}>
             {song.attributes?.name}
@@ -47,6 +52,16 @@ const SongCard = ({ song, isPlaying, activeSong, i, data }) => {
         <p className="text-sm truncate text-gray-300 mt-1">
           <Link to={`/artists/${song.relationships?.artists?.data[0]?.id}`}>
             {song.attributes?.artistName}
+          </Link> */}
+          <div className="mt-4 flex flex-col">
+        <p className="font-semibold text-lg text-white truncate">
+          <Link to={`/songs/${song.id}`}>
+            {song.attributes.name}
+          </Link>
+        </p>
+        <p className="text-sm truncate text-gray-300 mt-1">
+          <Link to={`/artists/${song.relationships.artists.data[0].id}`}>
+            {song.attributes.artistName}
           </Link>
         </p>
       </div>
