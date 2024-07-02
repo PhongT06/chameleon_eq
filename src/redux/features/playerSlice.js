@@ -6,7 +6,7 @@ const initialState = {
   isActive: false,
   isPlaying: false,
   // activeSong: {},
-  activeSong: { title: '' },
+  activeSong: { title: ''},
   genreListId: '',
 };
 
@@ -37,7 +37,7 @@ const playerSlice = createSlice({
       state.currentSongs = action.payload.data;
       state.currentIndex = action.payload.i;
       state.isActive = true;
-      console.log('New state:', JSON.parse(JSON.stringify(state)));
+      console.log('New state:', state);
     },
 
     nextSong: (state, action) => {
