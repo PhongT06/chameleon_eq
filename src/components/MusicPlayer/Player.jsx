@@ -1,5 +1,6 @@
 /* eslint-disable jsx-a11y/media-has-caption */
 import React, { useRef, useEffect } from 'react';
+import AutoEQ from '../AutoEQ';
 
 const Player = ({ activeSong, isPlaying, volume, seekTime, onEnded, onTimeUpdate, onLoadedData, repeat }) => {
   const audioRef = useRef(null);
@@ -50,7 +51,7 @@ const Player = ({ activeSong, isPlaying, volume, seekTime, onEnded, onTimeUpdate
               audioRef.current.pause();
             }
           }
-        }, [isPlaying, audioSrc]);
+        }, [isPlaying, audioSrc, activeSong]);
 
         // useEffect(() => {
         //   if (ref.current) {
@@ -112,6 +113,7 @@ const Player = ({ activeSong, isPlaying, volume, seekTime, onEnded, onTimeUpdate
         }, [seekTime]);
 
         return (
+          <>
             <audio
               ref={audioRef}
               src={audioSrc}
@@ -122,6 +124,8 @@ const Player = ({ activeSong, isPlaying, volume, seekTime, onEnded, onTimeUpdate
               preload="metadata"
               loop={repeat}
       />
+      <AutoEQ audioRef={audioRef} />
+    </>
   );
 };
 
