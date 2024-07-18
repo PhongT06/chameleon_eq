@@ -3,6 +3,7 @@ import { Route, Routes } from 'react-router-dom';
 
 import { Searchbar, Sidebar, MusicPlayer, TopPlay } from './components';
 import { ArtistDetails, TopArtists, AroundYou, Discover, Search, SongDetails, TopCharts } from './pages';
+import EQSidebar from './components/EQSidebar';
 
 const App = () => {
   const { activeSong } = useSelector((state) => state.player);
@@ -36,11 +37,14 @@ const App = () => {
           <MusicPlayer />
         </div>
       )} */}
-      {activeSong?.attributes?.name && (
-        <div className="absolute h-28 bottom-0 left-0 right-0 flex animate-slideup bg-gradient-to-br from-white/10 to-[#1b513b] backdrop-blur-lg rounded-t-3xl z-10">
-          <MusicPlayer />
-        </div>
-      )}
+      {activeSong?.attributes?.name && <EQSidebar />}(
+        <>
+          <div className="absolute h-28 bottom-0 left-0 right-0 flex animate-slideup bg-gradient-to-br from-white/10 to-[#1b513b] backdrop-blur-lg rounded-t-3xl z-10">
+            <MusicPlayer />
+          </div>
+          <EQSidebar />  {/* Add the EQSidebar component here */}
+        </>
+      )
     </div>
   );
 };
