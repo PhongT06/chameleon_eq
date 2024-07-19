@@ -37,7 +37,7 @@ const TopChartsCard = ({ song, i, isPlaying, activeSong, handlePauseClick, handl
 const TopPlay = () => {
   const dispatch = useDispatch();
   const { activeSong, isPlaying } = useSelector((state) => state.player);
-  const { data } = useGetTopChartsQuery();
+  const { data, isFetching, error } = useGetTopChartsQuery();
   const divRef = useRef(null);
 
   useEffect(() => {

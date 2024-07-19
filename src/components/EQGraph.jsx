@@ -1,26 +1,25 @@
-import React, { useMemo } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 
 const EQGraph = ({ genre, eqSettings, isPresetActive, width = 400, height = 280 }) => {
-   // const width = 340; 
-   // const height = 240; 
+   const [points, setPoints] = useState([]);
    const padding = 25; 
    const graphWidth = width - 2 * padding;
    const graphHeight = height - 2 * padding;
 
-   
-
-   const generatePath = useMemo(() => {
-      if (!isPresetActive) {
-         console.log('Generating inactive path');
-         return `M ${padding} ${height / 2} L ${width - padding} ${height / 2}`;
-      }
-
-      const points = [
+   useEffect(() => {
+      const newPoints = [
          { x: padding + graphWidth / 5, y: height / 2 - eqSettings.subBass * (graphHeight / 10) },
          { x: padding + 2 * graphWidth / 5, y: height / 2 - eqSettings.bass * (graphHeight / 10) },
          { x: padding + 3 * graphWidth / 5, y: height / 2 - eqSettings.midrange * (graphHeight / 10) },
          { x: padding + 4 * graphWidth / 5, y: height / 2 - eqSettings.treble * (graphHeight / 10) }
       ];
+      setPoints(newPoints);
+   }, [eqSettings, width, height, graphWidth, graphHeight]);
+
+   const generatePath = useMemo(() => {
+      if (!isPresetActive || points.length === 0) {
+         return `M ${padding} ${height / 2} L ${width - padding} ${height / 2}`;
+      }
 
       return `M ${padding} ${height / 2} 
                C ${(padding + points[0].x) / 2} ${height / 2}, 
@@ -34,7 +33,7 @@ const EQGraph = ({ genre, eqSettings, isPresetActive, width = 400, height = 280 
                ${points[3].x} ${points[3].y}
                S ${(points[3].x + (width - padding)) / 2} ${height / 2}, 
                ${width - padding} ${height / 2}`;
-   }, [eqSettings, isPresetActive]);
+   }, [isPresetActive, points, padding, width, height]);
 
    const generateFillPath = useMemo(() => {
       if (!isPresetActive) {
@@ -106,10 +105,37 @@ const EQGraph = ({ genre, eqSettings, isPresetActive, width = 400, height = 280 
          ))}
          
          {/* EQ curve fill */}
-         <path d={generateFillPath} fill="url(#fillGradient)" />
+         <path 
+            d={generatePath}
+            fill="none" 
+            stroke="url(#eqGradient)" 
+            strokeWidth="3"
+            style={{ transition: 'all 0.5s ease-out' }}
+         />
+         
+         <path 
+            d={`${generatePath} L ${width - padding} ${height / 2} L ${padding} ${height / 2} Z`}
+            fill="url(#fillGradient)"
+            opacity={isPresetActive ? 0.6 : 0}
+            style={{ transition: 'all 0.5s ease-out' }}
+         />
          
          {/* EQ curve or inactive state line */}
-         <path d={generatePath} fill="none" stroke="url(#eqGradient)" strokeWidth="3" />
+         {/* <path 
+            key={`curve-${genre}`}
+            d={generatePath} 
+            fill="none" 
+            stroke="url(#eqGradient)" 
+            strokeWidth="3"
+         >
+            <animate
+               attributeName="d"
+               dur="0.1s"
+               fill="freeze"
+               calcMode="spline"
+               keySplines="0.4 0 0.2 1"
+            />
+         </path> */}
          
          {/* dB labels */}
          <text x="5" y={padding + 5} fill="#fff" fontSize="14">+5 dB</text>
@@ -117,17 +143,17 @@ const EQGraph = ({ genre, eqSettings, isPresetActive, width = 400, height = 280 
          <text x="5" y={height - padding + 5} fill="#fff" fontSize="14">-5 dB</text>
          
          {/* Frequency labels */}
-         <text x={padding + graphWidth / 5} y={height + 10} fill="#fff" fontSize="12" textAnchor="middle">Sub-bass</text>
-         <text x={padding + graphWidth / 5} y={height + 25} fill="#fff" fontSize="12" textAnchor="middle">(60Hz)</text>
+         <text x={padding + graphWidth / 5} y={height + 10} fill="#fff" fontSize="14" textAnchor="middle">Sub-bass</text>
+         <text x={padding + graphWidth / 5} y={height + 25} fill="#fff" fontSize="14" textAnchor="middle">(60Hz)</text>
 
-         <text x={padding + 2 * graphWidth / 5} y={height + 10} fill="#fff" fontSize="12" textAnchor="middle">Bass</text>
-         <text x={padding + 2 * graphWidth / 5} y={height + 25} fill="#fff" fontSize="12" textAnchor="middle">(250Hz)</text>
+         <text x={padding + 2 * graphWidth / 5} y={height + 10} fill="#fff" fontSize="14" textAnchor="middle">Bass</text>
+         <text x={padding + 2 * graphWidth / 5} y={height + 25} fill="#fff" fontSize="14" textAnchor="middle">(250Hz)</text>
 
-         <text x={padding + 3 * graphWidth / 5} y={height + 10} fill="#fff" fontSize="12" textAnchor="middle">Midrange</text>
-         <text x={padding + 3 * graphWidth / 5} y={height + 25} fill="#fff" fontSize="12" textAnchor="middle">(1kHz)</text>
+         <text x={padding + 3 * graphWidth / 5} y={height + 10} fill="#fff" fontSize="14" textAnchor="middle">Midrange</text>
+         <text x={padding + 3 * graphWidth / 5} y={height + 25} fill="#fff" fontSize="14" textAnchor="middle">(1kHz)</text>
 
-         <text x={padding + 4 * graphWidth / 5} y={height + 10} fill="#fff" fontSize="12" textAnchor="middle">Treble</text>
-         <text x={padding + 4 * graphWidth / 5} y={height + 25} fill="#fff" fontSize="12" textAnchor="middle">(8kHz)</text>
+         <text x={padding + 4 * graphWidth / 5} y={height + 10} fill="#fff" fontSize="14" textAnchor="middle">Treble</text>
+         <text x={padding + 4 * graphWidth / 5} y={height + 25} fill="#fff" fontSize="14" textAnchor="middle">(8kHz)</text>
       </svg>
    );
 };
