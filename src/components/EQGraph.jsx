@@ -1,8 +1,8 @@
 import React, { useMemo } from 'react';
 
-const EQGraph = ({ genre, eqSettings, isPresetActive }) => {
-   const width = 340; 
-   const height = 240; 
+const EQGraph = ({ genre, eqSettings, isPresetActive, width = 400, height = 280 }) => {
+   // const width = 340; 
+   // const height = 240; 
    const padding = 25; 
    const graphWidth = width - 2 * padding;
    const graphHeight = height - 2 * padding;
