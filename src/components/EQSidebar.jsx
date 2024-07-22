@@ -2,12 +2,16 @@ import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { eqPresets } from './eqPresets';
 import EQGraph from './EQGraph';
+import MusicVisualizer from './MusicVisualizer';
+
 
 const EQSidebar = ({ isOpen, onClose }) => {
-  const { activeSong } = useSelector((state) => state.player);
+  const { activeSong, isPlaying } = useSelector((state) => state.player);
   const [eqSettings, setEqSettings] = useState({ subBass: 0, bass: 0, midrange: 0, treble: 0 });
   const [isPresetActive, setIsPresetActive] = useState(true);
   const [currentGenre, setCurrentGenre] = useState('pop');
+
+  console.log('EQSidebar: Rendering', { isOpen, activeSong: !!activeSong, isPlaying });
 
   const detectGenre = (song) => {
     if (song && song.attributes) {
@@ -35,7 +39,8 @@ const EQSidebar = ({ isOpen, onClose }) => {
         'alternative': ['alternative'],
         'latin': ['urbano latino', 'latin', 'spanish', 'mexicana'],
         'soul': ['r&b', 'soul', 'r&b/soul'],
-        'house': ['house', 'afro house']
+        'house': ['house', 'afro house'],
+        'k-pop': ['k-pop', 'k pop']
       };
 
       let preset = eqPresets[detectedGenre] || eqPresets.pop;
@@ -102,6 +107,15 @@ const EQSidebar = ({ isOpen, onClose }) => {
         <p className="text-lg">Bass (250Hz): {eqSettings.bass} dB</p>
         <p className="text-lg">Midrange (1kHz): {eqSettings.midrange} dB</p>
         <p className="text-lg">Treble (8kHz): {eqSettings.treble} dB</p>
+      </div>
+
+      <div className="mt-10">
+        <MusicVisualizer 
+          audioSrc={activeSong?.attributes?.previews?.[0]?.url}
+          isPlaying={isPlaying}
+          width={350}
+          height={350}
+        />
       </div>
     </div>
   );
