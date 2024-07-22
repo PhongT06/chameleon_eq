@@ -69,9 +69,9 @@ const EQGraph = ({ genre, eqSettings, isPresetActive, width = 400, height = 280 
             <stop offset="0%" stopColor="#0AD3F4" />
             <stop offset="100%" stopColor="#5279DE" />
          </linearGradient>
-         <linearGradient id="fillGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop offset="0%" stopColor="#304fe5" stopOpacity="0.6" />
-            <stop offset="100%" stopColor="#42fff4" stopOpacity="0.6" />
+         <linearGradient id="fillGradient" x1="0%" y1="100%" x2="0%" y2="0%">
+            <stop offset="0%" stopColor="#42fff4" stopOpacity="0.9" />
+            <stop offset="100%" stopColor="#304fe5" stopOpacity="0.9" />
          </linearGradient>
          </defs>
          
