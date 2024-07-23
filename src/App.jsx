@@ -13,8 +13,6 @@ const App = () => {
 
   const [isEQSidebarOpen, setIsEQSidebarOpen] = useState(false);
 
-  // const openEQSidebar = () => setIsEQSidebarOpen(true);
-  // const closeEQSidebar = () => setIsEQSidebarOpen(false);
   const toggleEQSidebar = () => setIsEQSidebarOpen(!isEQSidebarOpen);
 
   return (
@@ -42,7 +40,7 @@ const App = () => {
         </div>
       </div>
 
-      {activeSong?.attributes?.name && <EQSidebar />}(
+      {activeSong?.attributes?.name && (
         <>
           <div className="absolute h-28 bottom-0 left-0 right-0 flex animate-slideup bg-gradient-to-br from-white/10 to-[#1b513b] backdrop-blur-lg rounded-t-3xl z-10">
             <MusicPlayer />
@@ -58,9 +56,9 @@ const App = () => {
               className="w-16 h-16 transition-opacity duration-300 ease-in-out"
             />
           </button>
-          <EQSidebar isOpen={isEQSidebarOpen} /> 
+          <EQSidebar isOpen={isEQSidebarOpen} onClose={() => setIsEQSidebarOpen(false)} />
         </>
-      )
+      )}
     </div>
   );
 };
