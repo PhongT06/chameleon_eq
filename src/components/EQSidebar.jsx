@@ -10,6 +10,7 @@ const EQSidebar = ({ isOpen, onClose }) => {
   const [eqSettings, setEqSettings] = useState({ subBass: 0, bass: 0, midrange: 0, treble: 0 });
   const [isPresetActive, setIsPresetActive] = useState(true);
   const [currentGenre, setCurrentGenre] = useState('pop');
+  const [isVisualizerActive, setIsVisualizerActive] = useState(true);
 
   console.log('EQSidebar: Rendering', { isOpen, activeSong: !!activeSong, isPlaying });
 
@@ -73,6 +74,10 @@ const EQSidebar = ({ isOpen, onClose }) => {
     });
   };
 
+  const toggleVisualizer = () => {
+    setIsVisualizerActive((prev) => !prev);
+  };
+
   const capitalizeGenre = (genre) => {
     return genre.split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
   };
@@ -109,13 +114,27 @@ const EQSidebar = ({ isOpen, onClose }) => {
         <p className="text-lg">Treble (8kHz): {eqSettings.treble} dB</p>
       </div>
 
-      <div className="mt-10">
-        <MusicVisualizer 
-          audioSrc={activeSong?.attributes?.previews?.[0]?.url}
-          isPlaying={isPlaying}
-          width={350}
-          height={350}
-        />
+      <div className="mt-4 flex justify-end items-center">
+        <span className="mr-2 text-sm">Visualizer</span>
+        <label className="switch">
+          <input 
+            type="checkbox" 
+            checked={isVisualizerActive}
+            onChange={toggleVisualizer}
+          />
+          <span className="slider round"></span>
+        </label>
+      </div>
+
+      <div className="mt-4">
+        {isVisualizerActive && activeSong && (
+          <MusicVisualizer 
+            audioSrc={activeSong?.attributes?.previews?.[0]?.url}
+            isPlaying={isPlaying}
+            width={350}
+            height={350}
+          />
+        )}
       </div>
     </div>
   );
