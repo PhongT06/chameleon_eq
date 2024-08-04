@@ -5,7 +5,6 @@ const initialState = {
   currentIndex: 0,
   isActive: false,
   isPlaying: false,
-  // activeSong: {},
   activeSong: { title: ''},
   genreListId: '',
 };
@@ -14,21 +13,6 @@ const playerSlice = createSlice({
   name: 'player',
   initialState,
   reducers: {
-    // setActiveSong: (state, action) => {
-    //   console.log('setActiveSong action received:', action.payload);
-    //   state.activeSong = action.payload.song;
-
-    //   if (action.payload?.data?.tracks?.hits) {
-    //     state.currentSongs = action.payload.data.tracks.hits;
-    //   } else if (action.payload?.data?.properties) {
-    //     state.currentSongs = action.payload?.data?.tracks;
-    //   } else {
-    //     state.currentSongs = action.payload.data;
-    //   }
-
-    //   state.currentIndex = action.payload.i;
-    //   state.isActive = true;
-    // },
 
     setActiveSong: (state, action) => {
       console.log('setActiveSong reducer called');

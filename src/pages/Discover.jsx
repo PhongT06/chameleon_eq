@@ -14,7 +14,6 @@ const Discover = () => {
 
     if (isFetching) return <Loader title="Loading songs..." />;
     
-    // if (error) return <Error />;
     if (error) {
         console.error('API Error:', error);
         return <Error message={error.status === 429 ? "Too many requests. Please try again later." : "Something went wrong. Please try again."} />;

@@ -30,8 +30,6 @@ const AutoEQ = ({ audioRef }) => {
    useEffect(() => {
       if (audioRef.current && eqSettings) {
          console.log('EQ settings for genre:', currentGenre, eqSettings);
-         // Web Audio API code commented out due to CORS issues
-         // Uncomment and implement proper CORS handling to apply EQ
       }
    }, [eqSettings, audioRef, currentGenre]);
 

@@ -103,40 +103,6 @@ const MusicVisualizer = ({ audioSrc, isPlaying, width = 300, height = 300 }) => 
       let barHeight;
       let x;
 
-      // function drawVisualiser(bufferLength, x, barWidth, barHeight, dataArray) {
-      //    for (let i = 0; i < bufferLength; i++) {
-      //       barHeight = dataArray[i] * 0.7 * fadeFactorRef.current;
-      //       ctx.save();
-      //       ctx.translate(canvas.width / 2, canvas.height / 2);
-      //       ctx.rotate(i * 3);
-      //       const hue = 140 + i * 0.3;
-      //       ctx.fillStyle = `hsla(${hue}, 100%, 50%, ${fadeFactorRef.current})`;
-      //       ctx.beginPath();
-      //       ctx.arc(25, barHeight / 2, barHeight / 2, 0, Math.PI / 3.5);
-      //       ctx.fill();
-      //       ctx.stroke();
-      //       x += barWidth;
-      //       ctx.restore();
-      //    }
-      // }
-
-      // function drawVisualiser(bufferLength, x, barWidth, barHeight, dataArray) {
-      //    for (let i = 0; i < bufferLength; i++) {
-      //       barHeight = dataArray[i] * 0.7 * fadeFactorRef.current;
-      //       ctx.save();
-      //       ctx.translate(canvas.width / 2, canvas.height / 2);
-      //       ctx.rotate(i * 4.184);
-      //       const hue = 150 + i * 0.111;
-      //       ctx.fillStyle = 'hsl(' + hue + ', 100%, 50%)';
-      //       ctx.beginPath();
-      //       ctx.arc( 10, barHeight / 2, barHeight / 2, 0, Math.PI / 4);
-      //       ctx.fill();
-      //       ctx.stroke();
-      //       x += barWidth;
-      //       ctx.restore();
-      //    }
-      // }
-
       function drawVisualiser(bufferLength, x, barWidth, barHeight, dataArray) {
          for (let i = 0; i < bufferLength; i++) {
             barHeight = dataArray[i] * 0.7 * fadeFactorRef.current;

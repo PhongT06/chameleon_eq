@@ -120,23 +120,6 @@ const EQGraph = ({ genre, eqSettings, isPresetActive, width = 400, height = 280 
             style={{ transition: 'all 0.5s ease-out' }}
          />
          
-         {/* EQ curve or inactive state line */}
-         {/* <path 
-            key={`curve-${genre}`}
-            d={generatePath} 
-            fill="none" 
-            stroke="url(#eqGradient)" 
-            strokeWidth="3"
-         >
-            <animate
-               attributeName="d"
-               dur="0.1s"
-               fill="freeze"
-               calcMode="spline"
-               keySplines="0.4 0 0.2 1"
-            />
-         </path> */}
-         
          {/* dB labels */}
          <text x="5" y={padding + 5} fill="#fff" fontSize="14">+5 dB</text>
          <text x="5" y={height / 2 + 5} fill="#fff" fontSize="14">0 dB</text>
